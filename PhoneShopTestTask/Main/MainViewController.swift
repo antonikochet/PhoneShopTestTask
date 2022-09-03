@@ -30,8 +30,22 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubview()
+        setupNavigationItem()
     }
 
+    private func setupNavigationItem() {
+        //возможно создание кастомного вью
+        title = viewModel.title
+        
+        //link to icon: https://icons8.com/icon/jf3MK94upnLI/funnel
+        let image = UIImage(named: "filterIcon")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image,
+                                                            style: .done,
+                                                            target: self,
+                                                            action: #selector(didTouchFilterOptionsButton))
+        navigationItem.rightBarButtonItem?.tintColor = .black
+    }
+    
     private func setupSubview() {
         view.addSubview(tableView)
         view.backgroundColor = .systemGray6
@@ -41,6 +55,12 @@ class MainViewController: UIViewController {
         tableView.delegate = self
     }
     
+    @objc private func didTouchFilterOptionsButton() {
+        let configurator = FilterOptionsConfigurator(brands: DataStorage.shared.getBrandsForFilter(),
+                                                     prices: DataStorage.shared.getPricesForFilter(),
+                                                     sizes: DataStorage.shared.getSizesForFilter()) // данные должны получаться из другого объекта 
+        present(configurator.configure(), animated: true)
+    }
 }
 
 extension MainViewController: UITableViewDataSource {

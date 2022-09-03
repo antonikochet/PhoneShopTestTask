@@ -16,11 +16,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        let viewController = MainViewController()
-        viewController.viewModel = MainViewModel()
-        
-        window?.rootViewController = viewController
+        let mainConfigurator = MainConfigurator()
+        window?.rootViewController = mainConfigurator.configure()
 
+//        let filterViewModel = FilterOptionsViewModel(brands: ["Samsung", "Xiaomi"])
+//        let vc = FilterOptionsViewController()
+//        vc.viewModel = filterViewModel
+//        let navVC = UINavigationController(rootViewController: vc)
+//        navVC.modalPresentationStyle = .pageSheet
+//        if let sheet = navVC.sheetPresentationController {
+//            sheet.detents = [.medium()]
+//        }
+//
+//        window?.rootViewController = navVC
         window?.makeKeyAndVisible()
     }
 

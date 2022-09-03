@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MainViewModelProtocol: AnyObject {
-    
+    var title: String { get }
 }
 
 class MainViewModel: MainViewModelProtocol {
@@ -41,6 +41,13 @@ class MainViewModel: MainViewModelProtocol {
                 strongSelf.didLoadBestSellerData?(true)
             }
         }
+    }
+    
+    //viewModelProtocol
+    
+    var title: String {
+        //функция которая будет определять местоположение пользователя
+        return "Zihuatanejo, Gro"
     }
 }
 
