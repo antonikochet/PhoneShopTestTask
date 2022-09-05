@@ -85,6 +85,7 @@ extension MainViewController: UITableViewDataSource {
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: BestSellerTableViewCell.identifier, for: indexPath) as! BestSellerTableViewCell
             cell.viewModel = viewModel as? BestSellerTableCellViewModelProtorol
+            cell.delegate = self
             return cell
         default:
             return tableView.dequeueReusableCell(withIdentifier: "default", for: indexPath)
@@ -107,6 +108,15 @@ extension MainViewController: UITableViewDelegate {
         let enumHeader = Headers(section: section)
         header.set(title: enumHeader.title, textButton: enumHeader.textButton)
         return header
+    }
+}
+
+extension MainViewController: BestSellerTableViewCellDelegate {
+    func showDetailsView(at index: Int) {
+        let id = 0 //viewModel.getIdForDevice(at: index)
+        let detailsConfigurator = DetailsConfigurator(id: id)
+        let vc = detailsConfigurator.configure()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

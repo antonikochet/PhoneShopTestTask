@@ -110,14 +110,15 @@ class BestSellerCollectionViewCell: UICollectionViewCell {
         discountPriceLabel.anchor(top: imageView.bottomAnchor,
                                   leading: leadingAnchor,
                                   bottom: nil,
-                                  trailing: nil,
-                                  padding: UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 0),
-                                  size: CGSize(width: frame.width / 2 - 32, height: frame.height * 0.15))
+                                  trailing: centerXAnchor,
+                                  padding: UIEdgeInsets(top: 0, left: 28, bottom: 0, right: -10))
+        discountPriceLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15).isActive = true
+        
         priceLabel.anchor(top: nil,
                           leading: discountPriceLabel.trailingAnchor,
                           bottom: nil,
                           trailing: trailingAnchor,
-                          padding: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
+                          padding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8))
         priceLabel.centerYAnchor.constraint(equalTo: discountPriceLabel.centerYAnchor).isActive = true
         
         titleLabel.anchor(top: discountPriceLabel.bottomAnchor,
@@ -155,21 +156,7 @@ class BestSellerCollectionViewCell: UICollectionViewCell {
                                   cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
         likeView.layer.shadowPath = cgPath
     }
-    
-    func set(image: String, discountPrice: String, price: String, title: String, isLike: Bool) {
-        NetworkManager.shared.loadImageData(image) { [weak self] result in
-            switch result {
-            case .success(let data):
-                guard let image = UIImage(data: data) else { return }
-                DispatchQueue.main.async {
-                    self?.imageView.image = image
-                }
-            case .failure(_):
-                print("error load image: \(image)")
-            }
-        }
-    }
-    
+
     private func drawLikeButton() {
         likeButton.setImage(viewModel.isFavorite ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart"), for: .normal)
     }

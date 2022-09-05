@@ -46,10 +46,10 @@ class FilterOptionsViewController: UIViewController {
         let height = navigationController?.navigationBar.frame.height ?? 0
         let view = UIView(frame: CGRect(x: 0, y: 0, width: height / 1.5, height: height / 1.5))
         view.backgroundColor = UIColor(named: "blue")
-        let imageView = UIImageView(frame: CGRect(x: view.frame.width / 4,
-                                                  y: view.frame.height / 4,
-                                                  width: view.frame.width / 2,
-                                                  height: view.frame.height / 2))
+        let imageView = UIImageView(frame: CGRect(x: view.frame.width / 3,
+                                                  y: view.frame.height / 3,
+                                                  width: view.frame.width / 3,
+                                                  height: view.frame.height / 3))
         if let image = UIImage(systemName: "multiply") {
             imageView.image = image
             imageView.tintColor = .white
@@ -66,7 +66,6 @@ class FilterOptionsViewController: UIViewController {
     private func setupRightButtonNavigationItem() {
         let height = navigationController?.navigationBar.frame.height ?? 0
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: height / 1.5 * 2, height: height / 1.5))
-        print(label.frame.height)
         label.backgroundColor = UIColor(named: "orange")
         label.text = "Done"
         label.textAlignment = .center
@@ -121,6 +120,11 @@ class FilterOptionsViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         if let view = navigationItem.leftBarButtonItem?.customView {
+            view.layer.cornerRadius = 11
+            view.clipsToBounds = true
+        }
+        
+        if let view = navigationItem.rightBarButtonItem?.customView {
             view.layer.cornerRadius = 11
             view.clipsToBounds = true
         }

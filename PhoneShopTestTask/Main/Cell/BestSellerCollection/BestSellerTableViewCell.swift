@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol BestSellerTableViewCellDelegate: AnyObject {
+    func showDetailsView(at index: Int)
+}
+
 protocol BestSellerTableCellViewModelProtorol: MainViewModelProtocol {
     var numberOfRowsBestSeller: Int { get }
     
@@ -38,6 +42,8 @@ class BestSellerTableViewCell: UITableViewCell {
             }
         }
     }
+    
+    weak var delegate: BestSellerTableViewCellDelegate?
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -103,7 +109,7 @@ extension BestSellerTableViewCell: UICollectionViewDataSource {
 
 extension BestSellerTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //TODO: переход на другой экран
+        delegate?.showDetailsView(at: indexPath.row)
     }
 }
 

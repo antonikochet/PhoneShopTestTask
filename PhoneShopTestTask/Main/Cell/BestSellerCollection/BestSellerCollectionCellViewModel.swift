@@ -31,11 +31,11 @@ class BestSellerCollectionCellViewModel: BestSellerCollectionCellViewModelProtoc
     }
     
     var price: String {
-        model.price != nil ? "$\(String(model.price!))" : ""
+        model.price != nil ? String.convertNumberInPrice(for: model.price! as NSNumber) : ""
     }
     
     var discountPrice: String {
-        model.discountPrice != nil ? "$\(String(model.discountPrice!))" : ""
+        model.discountPrice != nil ? String.convertNumberInPrice(for: model.discountPrice! as NSNumber) : ""
     }
     
     var title: String {
