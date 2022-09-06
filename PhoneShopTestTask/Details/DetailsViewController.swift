@@ -23,9 +23,35 @@ class DetailsViewController: UIViewController {
                 }
             }
             
+            viewModel.didLoadImage = { [weak self] in
+                DispatchQueue.main.async {
+                    guard let photoVC = self?.photoDetailsViewController(at: 0) else { return }
+                    self?.photosPageViewController.setViewControllers([photoVC], direction: .forward, animated: true)
+                    self?.photosPageViewController.view.isHidden = false
+                    self?.photoActivityIndicatorView.stopAnimating()
+                }
+            }
+            
         }
     }
+    //MARK: photoView
+    private let photoView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
+    private let photoActivityIndicatorView: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(style: .large)
+        activity.hidesWhenStopped = true
+        activity.translatesAutoresizingMaskIntoConstraints = false
+        return activity
+    }()
+    
+    private let photosPageViewController: UIPageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+    
+    
+    //MARK: top bottomView
     private let bottomView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -33,7 +59,6 @@ class DetailsViewController: UIViewController {
         return view
     }()
     
-    //MARK: top bottomView
     private let nameDeviceLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 26, weight: .medium)
@@ -143,8 +168,15 @@ class DetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Product Detailes"
+        
         view.backgroundColor = UIColor(white: 248/255, alpha: 0.95)
+        
+        createLeftButton(type: .back, selector: #selector(didTouchBackButton), ratioButtonToNavBar: 37.0/44.0, ratioSize: 0.55)
+        createRightButton(type: .cart, selector: #selector(didTouchAddCartButton), ratioButtonToNavBar: 37.00/44.0, ratioSize: 0.55)
+        
         setupBottomView()
+        setupPhotosPageView()
         setContentSubview()
     }
     
@@ -154,8 +186,20 @@ class DetailsViewController: UIViewController {
         let path = UIBezierPath(roundedRect:bottomView.bounds, byRoundingCorners:[.topLeft, .topRight], cornerRadii: CGSize(width: radius, height: radius))
         let maskLayer = CAShapeLayer()
 
+        photosPageViewController.view.layer.cornerRadius = 20
+        photosPageViewController.view.clipsToBounds = true
+        
         maskLayer.path = path.cgPath
         bottomView.layer.mask = maskLayer
+        
+        if let view = navigationItem.leftBarButtonItem?.customView {
+            view.layer.cornerRadius = 11
+            view.clipsToBounds = true
+        }
+        if let view = navigationItem.rightBarButtonItem?.customView {
+            view.layer.cornerRadius = 11
+            view.clipsToBounds = true
+        }
         
         favoritesButton.layer.cornerRadius = 10
         
@@ -175,6 +219,30 @@ class DetailsViewController: UIViewController {
     }
     
     //MARK: setups
+    private func setupPhotosPageView() {
+        view.addSubview(photoView)
+        photoView.addSubview(photoActivityIndicatorView)
+        photoActivityIndicatorView.centerXAnchor.constraint(equalTo: photoView.centerXAnchor).isActive = true
+        photoActivityIndicatorView.centerYAnchor.constraint(equalTo: photoView.centerYAnchor).isActive = true
+        
+        NSLayoutConstraint.activate([
+            photoView.bottomAnchor.constraint(equalTo: bottomView.topAnchor, constant: -8),
+            photoView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
+            photoView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
+            photoView.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
+        
+        photosPageViewController.dataSource = self
+        
+        addChild(photosPageViewController)
+        photosPageViewController.didMove(toParent: self)
+        
+        photosPageViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        photoView.addSubview(photosPageViewController.view)
+        photosPageViewController.view.isHidden = true
+        photosPageViewController.view.fillSuperview(padding: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
+        photosPageViewController.view.backgroundColor = .white
+    }
+    
     private func setupBottomView() {
         view.addSubview(bottomView)
         
@@ -338,6 +406,19 @@ class DetailsViewController: UIViewController {
         }
         
         addCartButton.setTitle(viewModel.price, for: .normal)
+        
+        photoActivityIndicatorView.startAnimating()
+    }
+    
+    private func photoDetailsViewController(at index: Int) -> PhotoDetailsViewController? {
+        if index >= viewModel.numberOfPhotos || viewModel.numberOfPhotos == 0 {
+            return nil
+        }
+        
+        let photoVC = PhotoDetailsViewController()
+        photoVC.index = index
+        photoVC.set(image: viewModel.getImageData(at: index))
+        return photoVC
     }
     
     private func drawFavoritesButton() {
@@ -368,6 +449,32 @@ class DetailsViewController: UIViewController {
     
     @objc private func didTouchAddCartButton() {
         viewModel.didTouchAddCart()
+    }
+    
+    @objc private func didTouchBackButton() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func didTouchCartViewButton() {
+        
+    }
+}
+
+extension DetailsViewController: UIPageViewControllerDataSource {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        let photoVC = viewController as? PhotoDetailsViewController
+        guard let currectIndex = photoVC?.index,
+              currectIndex != 0 else { return nil }
+        
+        return photoDetailsViewController(at: currectIndex - 1)
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        let photoVC = viewController as? PhotoDetailsViewController
+        guard let currectIndex = photoVC?.index,
+              currectIndex != viewModel.numberOfPhotos else { return nil }
+        
+        return photoDetailsViewController(at: currectIndex + 1)
     }
 }
 

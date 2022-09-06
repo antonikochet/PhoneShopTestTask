@@ -17,8 +17,8 @@ class CategoryCollectionViewCell: UICollectionViewCell {
                 self?.select(isSelect: viewModel.isSelectCell)
             }
             nameCategoryLabel.text = viewModel.nameCategory
-            if let icon = UIImage(systemName: viewModel.nameIconCategory) {
-                iconImageView.image = icon
+            if let icon = UIImage(named: viewModel.nameIconCategory) {
+                iconImageView.image = icon.withRenderingMode(.alwaysTemplate)
             }
             
             select(isSelect: viewModel.isSelectCell)
@@ -33,6 +33,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

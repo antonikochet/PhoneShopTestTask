@@ -17,13 +17,16 @@ protocol DetailsViewModelProtocol {
     var capacity: [String] { get }
     var color: [String] { get }
     var price: String { get }
+    var numberOfPhotos: Int { get }
     var sectionsOfInfo: [String] { get }
     init(_ id: Int)
     
     var didLoadDataForView: ((DetailsViewModelProtocol) -> Void)? { get set }
     var changedFavorites: (() -> Void)? { get set }
+    var didLoadImage: (() -> Void)? { get set }
     func didTouchFavorites()
     func didTouchAddCart()
+    func getImageData(at index: Int) -> Data?
 }
 
 class DetailsViewModel: DetailsViewModelProtocol {
@@ -31,6 +34,8 @@ class DetailsViewModel: DetailsViewModelProtocol {
     private var id: Int
     private var detailsData: DetailsData?
     private var isFavorite: Bool = false
+    private var imagesData: [Data] = []
+    
     //MARK: protocol property
     var nameDevice: String {
         detailsData?.title ?? ""
@@ -74,6 +79,10 @@ class DetailsViewModel: DetailsViewModelProtocol {
         }
     }
     
+    var numberOfPhotos: Int {
+        imagesData.count
+    }
+    
     var sectionsOfInfo: [String] {
         return ["Shop", "Details", "Features"]
     }
@@ -81,6 +90,7 @@ class DetailsViewModel: DetailsViewModelProtocol {
     //MARK: protocol callback
     var didLoadDataForView: ((DetailsViewModelProtocol) -> Void)?
     var changedFavorites: (() -> Void)? 
+    var didLoadImage: (() -> Void)?
     
     //MARK: init
     required init(_ id: Int) {
@@ -98,6 +108,12 @@ class DetailsViewModel: DetailsViewModelProtocol {
     func didTouchAddCart() {
         
     }
+    
+    func getImageData(at index: Int) -> Data? {
+        guard index <= imagesData.count || !imagesData.isEmpty else { return nil }
+        return imagesData[index]
+    }
+    
     //MARK: private methods
     private func loadData() {
         NetworkManager.shared.getDetailsScreenData(for: id) { [weak self] result in
@@ -107,8 +123,30 @@ class DetailsViewModel: DetailsViewModelProtocol {
                 self.detailsData = data
                 self.isFavorite = data.isFavorites
                 self.didLoadDataForView?(self)
+                self.loadImagesData()
             case .failure(let error):
                 print(error)
+            }
+        }
+    }
+    
+    private func loadImagesData() {
+        guard let detailsData = detailsData else { return }
+        var count = detailsData.images.count
+        for photoUrl in detailsData.images {
+            NetworkManager.shared.loadImageData(photoUrl) { [weak self] result in
+                switch result {
+                case .success(let data):
+                    self?.imagesData.append(data)
+                    count -= 1
+                case .failure(let error):
+                    print("\(photoUrl) not load image, \(error)")
+                    count -= 1
+                }
+                if count == 0 {
+                    self?.didLoadImage?()
+                }
+                
             }
         }
     }

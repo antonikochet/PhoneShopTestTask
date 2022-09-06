@@ -58,6 +58,8 @@ class HotSalesCollectionViewCell: UICollectionViewCell {
         label.textColor = .white
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 24, weight: .black)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.7
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -119,9 +121,9 @@ class HotSalesCollectionViewCell: UICollectionViewCell {
         
         descriptionLabel.anchor(top: brandLabel.bottomAnchor,
                                 leading: backView.leadingAnchor,
-                                bottom: nil,
+                                bottom: buyButton.topAnchor,
                                 trailing: nil,
-                                padding: UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 0))
+                                padding: UIEdgeInsets(top: 0, left: 24, bottom: 4, right: 0))
         
         buyButton.anchor(top: nil,
                          leading: backView.leadingAnchor,
@@ -129,11 +131,7 @@ class HotSalesCollectionViewCell: UICollectionViewCell {
                          trailing: nil,
                          padding: UIEdgeInsets(top: 0, left: 24, bottom: 16, right: 0),
                          size: CGSize(width: 98, height: 23))
-        imageView.anchor(top: backView.topAnchor,
-                         leading: brandLabel.trailingAnchor,
-                         bottom: backView.bottomAnchor,
-                         trailing: backView.trailingAnchor,
-                         padding: UIEdgeInsets(top: 0, left: -frame.width * 0.25, bottom: 0, right: 0))
+        imageView.fillSuperview()
     }
     
     override func layoutSubviews() {

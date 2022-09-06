@@ -17,4 +17,5 @@ struct DetailsData: Decodable {
     let capacity: [String]
     let color: [String]
     let price: Int
+    let images: [String]
 }

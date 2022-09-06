@@ -34,50 +34,12 @@ class FilterOptionsViewController: UIViewController {
         view.backgroundColor = .white
         title = viewModel.title
         
-        setupLeftButtonNavigationItem()
-        setupRightButtonNavigationItem()
+        createLeftButton(type: .close, selector: #selector(closeViewController), ratioButtonToNavBar: 37.0/56.0, ratioSize: 0.66)
+        createRightButton(withTitle: "Done", selector: #selector(doneFilterViewController), ratioButtonToNavBar: 37.0/56.0)
         
         setupBrandView()
         setupPriceView()
         setupSizeView()
-    }
-    
-    private func setupLeftButtonNavigationItem() {
-        let height = navigationController?.navigationBar.frame.height ?? 0
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: height / 1.5, height: height / 1.5))
-        view.backgroundColor = UIColor(named: "blue")
-        let imageView = UIImageView(frame: CGRect(x: view.frame.width / 3,
-                                                  y: view.frame.height / 3,
-                                                  width: view.frame.width / 3,
-                                                  height: view.frame.height / 3))
-        if let image = UIImage(systemName: "multiply") {
-            imageView.image = image
-            imageView.tintColor = .white
-        }
-        view.addSubview(imageView)
-        
-        let backTap = UITapGestureRecognizer(target: self, action: #selector(closeViewController))
-        view.addGestureRecognizer(backTap)
-        
-        let leftBarButtonItem = UIBarButtonItem(customView: view)
-        navigationItem.leftBarButtonItem = leftBarButtonItem
-    }
-    
-    private func setupRightButtonNavigationItem() {
-        let height = navigationController?.navigationBar.frame.height ?? 0
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: height / 1.5 * 2, height: height / 1.5))
-        label.backgroundColor = UIColor(named: "orange")
-        label.text = "Done"
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        label.textColor = .white
-        label.isUserInteractionEnabled = true
-
-        let backTap = UITapGestureRecognizer(target: self, action: #selector(doneFilterViewController))
-        label.addGestureRecognizer(backTap)
-
-        let rightBarButtonItem = UIBarButtonItem(customView: label)
-        navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
     private func setupBrandView() {

@@ -8,18 +8,20 @@
 import Foundation
 
 enum CategoryProduct: String, CaseIterable {
-    case Phones, Computer, Health, Books
+    case Phones, Computer, Heart, Books, Other
     
     var nameImage: String {
         switch self {
         case .Phones:
-            return "iphone"
+            return "phone"
         case .Computer:
-            return "desktopcomputer"
-        case .Health:
+            return "computer"
+        case .Heart:
             return "heart"
         case .Books:
-            return "book"
+            return "books"
+        case .Other:
+            return "other"
         }
     }
 }

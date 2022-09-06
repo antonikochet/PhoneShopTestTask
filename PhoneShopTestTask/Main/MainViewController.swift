@@ -37,7 +37,6 @@ class MainViewController: UIViewController {
         //возможно создание кастомного вью
         title = viewModel.title
         
-        //link to icon: https://icons8.com/icon/jf3MK94upnLI/funnel
         let image = UIImage(named: "filterIcon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: image,
                                                             style: .done,

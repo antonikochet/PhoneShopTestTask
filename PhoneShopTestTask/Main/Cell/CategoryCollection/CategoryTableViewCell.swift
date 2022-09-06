@@ -41,6 +41,16 @@ class CategoryTableViewCell: UITableViewCell {
         return textField
     }()
     
+    private let searchButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor(named: "orange")
+        button.tintColor = .white
+        let imageButton = UIImage(named: "searchButton")
+        button.setImage(imageButton, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -65,6 +75,7 @@ class CategoryTableViewCell: UITableViewCell {
                                         bottom: nil,
                                         trailing: contentView.trailingAnchor,
                                         padding: UIEdgeInsets(top: 8, left: 8, bottom: 0, right: 8))
+        collectionView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.70).isActive = true
         
         setupSearchTextField()
     }
@@ -77,16 +88,19 @@ class CategoryTableViewCell: UITableViewCell {
         super.layoutSubviews()
         
         searchTextField.layer.cornerRadius = searchTextField.frame.height / 2
+        searchButton.layer.cornerRadius = searchButton.frame.height / 2
+        searchButton.clipsToBounds = true
     }
     
     private func setupSearchTextField() {
         contentView.addSubview(searchTextField)
-        searchTextField.anchor(top: collectionView.bottomAnchor,
+        searchTextField.anchor(top: nil,
                                leading: contentView.leadingAnchor,
                                bottom: contentView.bottomAnchor,
-                               trailing: contentView.trailingAnchor,
-                               padding: UIEdgeInsets(top: 8, left: 32, bottom: 8, right: 16))
-        
+                               trailing: nil,
+                               padding: UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 0))
+        searchTextField.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.72).isActive = true
+        searchTextField.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.22).isActive = true
         let height = 20
         let view = UIView(frame: CGRect(x: 0, y: 0, width: height * 2, height: height))
         let image = UIImage(systemName: "magnifyingglass")
@@ -97,6 +111,14 @@ class CategoryTableViewCell: UITableViewCell {
         imageview.tintColor = UIColor(named: "orange")
         searchTextField.leftView = view
         searchTextField.leftViewMode = .always
+        
+        contentView.addSubview(searchButton)
+        searchButton.anchor(top: searchTextField.topAnchor,
+                            leading: searchTextField.trailingAnchor,
+                            bottom: searchTextField.bottomAnchor,
+                            trailing: nil,
+                            padding: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0))
+        searchButton.widthAnchor.constraint(equalTo: searchButton.heightAnchor).isActive = true
     }
 }
 
