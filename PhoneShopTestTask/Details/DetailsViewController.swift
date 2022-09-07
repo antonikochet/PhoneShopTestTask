@@ -173,7 +173,7 @@ class DetailsViewController: UIViewController {
         view.backgroundColor = UIColor(white: 248/255, alpha: 0.95)
         
         createLeftButton(type: .back, selector: #selector(didTouchBackButton), ratioButtonToNavBar: 37.0/44.0, ratioSize: 0.55)
-        createRightButton(type: .cart, selector: #selector(didTouchAddCartButton), ratioButtonToNavBar: 37.00/44.0, ratioSize: 0.55)
+        createRightButton(type: .cart, selector: #selector(didTouchCartViewButton), ratioButtonToNavBar: 37.00/44.0, ratioSize: 0.55)
         
         setupBottomView()
         setupPhotosPageView()
@@ -456,7 +456,9 @@ class DetailsViewController: UIViewController {
     }
     
     @objc private func didTouchCartViewButton() {
-        
+        let configurator = CartConfigurator()
+        let vc = configurator.configure()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

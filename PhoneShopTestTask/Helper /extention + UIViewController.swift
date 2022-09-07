@@ -28,6 +28,7 @@ extension UIViewController {
                                                   y: view.frame.height * ratioSize / 2,
                                                   width: view.frame.width * (1 - ratioSize),
                                                   height: view.frame.height * (1 - ratioSize)))
+        imageView.contentMode = .scaleAspectFit
         let image: UIImage?
         switch type {
         case .close:
@@ -74,6 +75,7 @@ extension UIViewController {
                                                   y: view.frame.height * ratioSize / 2,
                                                   width: view.frame.width * (1 - ratioSize),
                                                   height: view.frame.height * (1 - ratioSize)))
+        imageView.contentMode = .scaleAspectFit
         let image: UIImage?
         switch type {
         case .cart:

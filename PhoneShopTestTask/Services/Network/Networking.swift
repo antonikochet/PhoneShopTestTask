@@ -10,5 +10,6 @@ import Foundation
 protocol Networking {
     func getMainScreenData(completion: @escaping (Result<MainScreenData, Error>) -> Void)
     func getDetailsScreenData(for id: Int, completion: @escaping (Result<DetailsData, Error>) -> Void)
+    func getCardScreenData(completion: @escaping (Result<CardData, Error>) -> Void)
     func loadImageData(_ urlString: String, completion: @escaping (Result<Data, Error>) -> Void)
 }

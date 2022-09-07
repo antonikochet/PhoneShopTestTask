@@ -27,12 +27,26 @@ class MainViewController: UIViewController {
         return tableview
     }()
     
+    private let tabBarView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "blue")
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubview()
         setupNavigationItem()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        tabBarView.layer.cornerRadius = tabBarView.frame.height / 2
+        tabBarView.clipsToBounds = true
+    }
+    
     private func setupNavigationItem() {
         //возможно создание кастомного вью
         title = viewModel.title
@@ -49,9 +63,60 @@ class MainViewController: UIViewController {
         view.addSubview(tableView)
         view.backgroundColor = .systemGray6
         
-        tableView.fillSuperview()
         tableView.dataSource = self
         tableView.delegate = self
+        view.addSubview(tabBarView)
+        tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                         leading: view.leadingAnchor,
+                         bottom: tabBarView.topAnchor,
+                         trailing: view.trailingAnchor)
+        
+        tabBarView.anchor(top: nil,
+                          leading: view.leadingAnchor,
+                          bottom: view.bottomAnchor,
+                          trailing: view.trailingAnchor)
+        tabBarView.heightAnchor.constraint(equalToConstant: 72).isActive = true
+        
+        let stackView = UIStackView()
+        tabBarView.addSubview(stackView)
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fillProportionally
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.contentMode = .scaleAspectFit
+        stackView.fillSuperview(padding: UIEdgeInsets(top: 0, left: 50, bottom: 0, right: 50))
+       
+        var configurator = UIButton.Configuration.plain()
+        configurator.imagePadding = 5
+        configurator.image = UIImage(named: "point")
+        configurator.title = "Explorer"
+        configurator.baseForegroundColor = .white
+        let explorerButton = UIButton(configuration: configurator)
+        stackView.addArrangedSubview(explorerButton)
+        explorerButton.heightAnchor.constraint(equalTo: tabBarView.heightAnchor).isActive = true
+        explorerButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/3).isActive = true
+        
+        let bagButton = UIButton()
+        bagButton.tintColor = .white
+        bagButton.setImage(UIImage(named: "bag"), for: .normal)
+        stackView.addArrangedSubview(bagButton)
+        bagButton.heightAnchor.constraint(equalTo: tabBarView.heightAnchor).isActive = true
+        bagButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 2/9).isActive = true
+        bagButton.addTarget(self, action: #selector(didTouchshowCart), for: .touchUpInside)
+        
+        let favoriteButton = UIButton()
+        favoriteButton.tintColor = .white
+        favoriteButton.setImage(UIImage(systemName: "suit.heart"), for: .normal)
+        stackView.addArrangedSubview(favoriteButton)
+        favoriteButton.heightAnchor.constraint(equalTo: tabBarView.heightAnchor).isActive = true
+        favoriteButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 2/9).isActive = true
+        
+        let personButton = UIButton()
+        personButton.tintColor = .white
+        personButton.setImage(UIImage(systemName: "person"), for: .normal)
+        stackView.addArrangedSubview(personButton)
+        personButton.heightAnchor.constraint(equalTo: tabBarView.heightAnchor).isActive = true
+        personButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 2/9).isActive = true
     }
     
     @objc private func didTouchFilterOptionsButton() {
@@ -59,6 +124,12 @@ class MainViewController: UIViewController {
                                                      prices: DataStorage.shared.getPricesForFilter(),
                                                      sizes: DataStorage.shared.getSizesForFilter()) // данные должны получаться из другого объекта 
         present(configurator.configure(), animated: true)
+    }
+    
+    @objc private func didTouchshowCart() {
+        let cartConfigurator = CartConfigurator()
+        let vc = cartConfigurator.configure()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -95,8 +166,8 @@ extension MainViewController: UITableViewDataSource {
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
-        case 0: return tableView.frame.height / 6
-        case 1: return tableView.frame.height / 5
+        case 0: return tableView.frame.height / 5
+        case 1: return tableView.frame.height / 4
         case 2: return BestSellerTableViewCell.SizesCell.calculateHeightTableCell(countItem: 4, widthTable: tableView.frame.width)
         default: return 0
         }
