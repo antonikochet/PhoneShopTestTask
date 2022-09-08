@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CartTableCellViewModelProtocol {
-    init(data: BasketCardData)
+    init(data: BasketCardData, networkManager: Networking)
     
     var nameProduct: String { get }
     var price: String { get }
@@ -19,9 +19,11 @@ protocol CartTableCellViewModelProtocol {
 }
 
 class CartTableCellViewModel: CartTableCellViewModelProtocol {
+    private let networkManager: Networking
     private var basket: BasketCardData
     
-    required init(data: BasketCardData) {
+    required init(data: BasketCardData, networkManager: Networking) {
+        self.networkManager = networkManager
         basket = data
     }
     
@@ -36,7 +38,7 @@ class CartTableCellViewModel: CartTableCellViewModelProtocol {
     var didLoadImage: ((Data?) -> Void)?
     
     func startLoadData() {
-        NetworkManager.shared.loadImageData(basket.images) { [weak self] result in
+        networkManager.loadImageData(basket.images) { [weak self] result in
             switch result {
             case .success(let data):
                 self?.didLoadImage?(data)

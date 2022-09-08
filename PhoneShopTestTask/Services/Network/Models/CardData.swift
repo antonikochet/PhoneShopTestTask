@@ -15,7 +15,7 @@ struct CardData: Decodable {
 }
 
 struct BasketCardData: Decodable {
-//    let id: Int
+    let id: Int
     let images: String
     let price: Int
     let title: String

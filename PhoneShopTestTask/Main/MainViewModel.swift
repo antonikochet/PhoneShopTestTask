@@ -9,9 +9,13 @@ import Foundation
 
 protocol MainViewModelProtocol: AnyObject {
     var title: String { get }
+    func getParametrsForFilterOptions() -> FilterOptionsConfiguratorProtocol
 }
 
 class MainViewModel: MainViewModelProtocol {
+    private let networkManager: Networking
+    private let dataStorage: DataStorageProtocol
+    
     private let categories: [CategoryProduct]
     private var selectedCategory: CategoryProduct
     private var hotSalesModels: [HotSalesModel] = []
@@ -20,14 +24,16 @@ class MainViewModel: MainViewModelProtocol {
     private var didLoadBestSellerData: ((Bool) -> Void)?
     private var didLoadHotSalesData: ((Bool) -> Void)?
     
-    init() {
-        categories = DataStorage.shared.getCategory()
+    init(networkManager: Networking, dataStorage: DataStorageProtocol) {
+        self.networkManager = networkManager
+        self.dataStorage = dataStorage
+        categories = self.dataStorage.getCategory()
         selectedCategory = .Phones
         loadData()
     }
     
     private func loadData() {
-        NetworkManager.shared.getMainScreenData { [weak self] result in
+        networkManager.getMainScreenData { [weak self] result in
             guard let strongSelf = self else { return }
             switch result {
             case .success(let mainScreenData):
@@ -48,6 +54,13 @@ class MainViewModel: MainViewModelProtocol {
     var title: String {
         //функция которая будет определять местоположение пользователя
         return "Zihuatanejo, Gro"
+    }
+    
+    func getParametrsForFilterOptions() -> FilterOptionsConfiguratorProtocol {
+        let data = FilterOptionsConfiguratorData(brands: dataStorage.getBrandsForFilter(),
+                                                 prices: dataStorage.getPricesForFilter(),
+                                                 sizes: dataStorage.getSizesForFilter())
+        return data
     }
 }
 
@@ -78,7 +91,7 @@ extension MainViewModel: HotSalesTableCellViewModelProtorol {
     }
     
     func getHotSalesViewModel(at index: Int) -> HotSalesCollectionCellViewModelProtocol {
-        HotSalesCollectionCellViewModel(model: hotSalesModels[index])
+        HotSalesCollectionCellViewModel(model: hotSalesModels[index], networkManager: networkManager)
     }
     
     var didLoadDataForHotSales: ((Bool) -> Void)? {
@@ -94,7 +107,7 @@ extension MainViewModel: BestSellerTableCellViewModelProtorol {
     }
     
     func getBestSellerViewModel(at index: Int) -> BestSellerCollectionCellViewModelProtocol {
-        BestSellerCollectionCellViewModel(bestSellesModels[index])
+        BestSellerCollectionCellViewModel(bestSellesModels[index], networkManager: networkManager)
     }
     
     var didLoadDataForBestSeller: ((Bool) -> Void)? {
@@ -102,4 +115,12 @@ extension MainViewModel: BestSellerTableCellViewModelProtorol {
         set { didLoadBestSellerData = newValue }
     }
     
+}
+
+extension MainViewModel {
+    struct FilterOptionsConfiguratorData: FilterOptionsConfiguratorProtocol {
+        var brands: [String]
+        var prices: [String]
+        var sizes: [String]
+    }
 }

@@ -10,7 +10,7 @@ import UIKit
 class MainConfigurator: Configurator {
     func configure() -> UIViewController {
         let viewController = MainViewController()
-        viewController.viewModel = MainViewModel()
+        viewController.viewModel = MainViewModel(networkManager: NetworkManager(), dataStorage: DataStorage())
         
         let navigationVC = UINavigationController(rootViewController: viewController)
         

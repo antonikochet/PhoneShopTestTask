@@ -7,22 +7,24 @@
 
 import UIKit
 
+protocol FilterOptionsConfiguratorProtocol {
+    var brands: [String] { get }
+    var prices: [String] { get }
+    var sizes: [String] { get }
+}
+
 class FilterOptionsConfigurator: Configurator {
     
-    private let brands: [String]
-    private let prices: [String]
-    private let sizes: [String]
+    private let data: FilterOptionsConfiguratorProtocol
     
-    init(brands: [String], prices: [String], sizes: [String]) {
-        self.brands = brands
-        self.prices = prices
-        self.sizes = sizes
+    init(data: FilterOptionsConfiguratorProtocol) {
+        self.data = data
     }
     
     func configure() -> UIViewController {
-        let filterViewModel = FilterOptionsViewModel(brands: brands,
-                                                     prices: prices,
-                                                     sizes: sizes)
+        let filterViewModel = FilterOptionsViewModel(brands: data.brands,
+                                                     prices: data.prices,
+                                                     sizes: data.sizes)
         let vc = FilterOptionsViewController()
         vc.viewModel = filterViewModel
         let navVC = UINavigationController(rootViewController: vc)

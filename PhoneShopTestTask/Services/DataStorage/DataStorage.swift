@@ -15,8 +15,6 @@ protocol DataStorageProtocol {
 }
 
 struct DataStorage: DataStorageProtocol {
-    
-    static let shared = DataStorage()
     func getCategory() -> [CategoryProduct] {
         CategoryProduct.allCases
     }

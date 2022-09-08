@@ -127,10 +127,10 @@ class MainViewController: UIViewController {
     }
     
     @objc private func didTouchFilterOptionsButton() {
-        let configurator = FilterOptionsConfigurator(brands: DataStorage.shared.getBrandsForFilter(),
-                                                     prices: DataStorage.shared.getPricesForFilter(),
-                                                     sizes: DataStorage.shared.getSizesForFilter()) // данные должны получаться из другого объекта 
-        present(configurator.configure(), animated: true)
+        let filterConfiguratorData = viewModel.getParametrsForFilterOptions()
+        let filterConfigurator = FilterOptionsConfigurator(data: filterConfiguratorData)
+        let vc = filterConfigurator.configure()
+        present(vc, animated: true)
     }
     
     @objc private func didTouchshowCart() {

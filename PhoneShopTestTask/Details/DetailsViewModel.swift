@@ -19,7 +19,7 @@ protocol DetailsViewModelProtocol {
     var price: String { get }
     var numberOfPhotos: Int { get }
     var sectionsOfInfo: [String] { get }
-    init(_ id: Int)
+    init(_ id: Int, networkManager: Networking)
     
     var didLoadDataForView: ((DetailsViewModelProtocol) -> Void)? { get set }
     var changedFavorites: (() -> Void)? { get set }
@@ -31,6 +31,7 @@ protocol DetailsViewModelProtocol {
 
 class DetailsViewModel: DetailsViewModelProtocol {
     //MARK: private property
+    private let networkManager: Networking
     private var id: Int
     private var detailsData: DetailsData?
     private var isFavorite: Bool = false
@@ -93,7 +94,8 @@ class DetailsViewModel: DetailsViewModelProtocol {
     var didLoadImage: (() -> Void)?
     
     //MARK: init
-    required init(_ id: Int) {
+    required init(_ id: Int, networkManager: Networking) {
+        self.networkManager = networkManager
         self.id = id
         loadData()
     }
@@ -116,7 +118,7 @@ class DetailsViewModel: DetailsViewModelProtocol {
     
     //MARK: private methods
     private func loadData() {
-        NetworkManager.shared.getDetailsScreenData(for: id) { [weak self] result in
+        networkManager.getDetailsScreenData(for: id) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
@@ -134,7 +136,7 @@ class DetailsViewModel: DetailsViewModelProtocol {
         guard let detailsData = detailsData else { return }
         var count = detailsData.images.count
         for photoUrl in detailsData.images {
-            NetworkManager.shared.loadImageData(photoUrl) { [weak self] result in
+            networkManager.loadImageData(photoUrl) { [weak self] result in
                 switch result {
                 case .success(let data):
                     self?.imagesData.append(data)

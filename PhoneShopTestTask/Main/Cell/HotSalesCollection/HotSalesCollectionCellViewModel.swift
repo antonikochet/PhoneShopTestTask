@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HotSalesCollectionCellViewModelProtocol {
-    init(model: HotSalesModel)
+    init(model: HotSalesModel, networkManager: Networking)
     var isNew: Bool { get }
     var isBuy: Bool { get }
     var brand: String { get }
@@ -20,9 +20,11 @@ protocol HotSalesCollectionCellViewModelProtocol {
 }
 
 class HotSalesCollectionCellViewModel: HotSalesCollectionCellViewModelProtocol {
+    private let networkManager: Networking
     private let model: HotSalesModel
     
-    required init(model: HotSalesModel) {
+    required init(model: HotSalesModel, networkManager: Networking) {
+        self.networkManager = networkManager
         self.model = model
     }
     
@@ -43,7 +45,7 @@ class HotSalesCollectionCellViewModel: HotSalesCollectionCellViewModelProtocol {
     }
     
     func loadImageData() {
-        NetworkManager.shared.loadImageData(model.picture) {[weak self] result in
+        networkManager.loadImageData(model.picture) {[weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):

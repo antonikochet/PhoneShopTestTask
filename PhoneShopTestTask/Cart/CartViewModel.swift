@@ -19,8 +19,10 @@ protocol CartViewModelProtocol {
 
 class CartViewModel: CartViewModelProtocol {
     private var cardData: CardData?
+    private var networkManager: Networking
     
-    init() {
+    init(networkManager: Networking) {
+        self.networkManager = networkManager
         loadData()
     }
     
@@ -43,12 +45,12 @@ class CartViewModel: CartViewModelProtocol {
     //MARK: protocol methods
     func getCartCellViewModel(at index: Int) -> CartTableCellViewModelProtocol? {
         guard let basket = cardData?.basket[index] else { return nil }
-        return CartTableCellViewModel(data: basket)
+        return CartTableCellViewModel(data: basket, networkManager: networkManager)
     }
     
     //MARK: private methods
     private func loadData() {
-        NetworkManager.shared.getCardScreenData { [weak self] result in
+        networkManager.getCardScreenData { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):

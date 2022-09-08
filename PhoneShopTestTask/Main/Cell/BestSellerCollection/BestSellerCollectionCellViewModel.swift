@@ -13,7 +13,7 @@ protocol BestSellerCollectionCellViewModelProtocol {
     var title: String { get }
     var isFavorite: Bool { get }
     
-    init(_ bestSeller: BestSellerModel)
+    init(_ bestSeller: BestSellerModel, networkManager: Networking)
     
     func didTouchFavorites()
     func loadImageData()
@@ -24,9 +24,11 @@ protocol BestSellerCollectionCellViewModelProtocol {
 class BestSellerCollectionCellViewModel: BestSellerCollectionCellViewModelProtocol {
     private let model: BestSellerModel
     private var isFavorites: Bool
+    private let networkManager: Networking
     
-    required init(_ bestSeller: BestSellerModel) {
+    required init(_ bestSeller: BestSellerModel, networkManager: Networking) {
         model = bestSeller
+        self.networkManager = networkManager
         isFavorites = model.isFavorites
     }
     
@@ -52,7 +54,7 @@ class BestSellerCollectionCellViewModel: BestSellerCollectionCellViewModelProtoc
     }
 
     func loadImageData() {
-        NetworkManager.shared.loadImageData(model.picture) {[weak self] result in
+        networkManager.loadImageData(model.picture) {[weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):

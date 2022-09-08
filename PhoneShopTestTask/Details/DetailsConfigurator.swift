@@ -15,7 +15,7 @@ class DetailsConfigurator: Configurator {
     }
     func configure() -> UIViewController {
         let vc = DetailsViewController()
-        let viewModel = DetailsViewModel(idDevice)
+        let viewModel = DetailsViewModel(idDevice, networkManager: NetworkManager())
         vc.viewModel = viewModel
         return vc
     }
