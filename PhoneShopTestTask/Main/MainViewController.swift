@@ -48,8 +48,15 @@ class MainViewController: UIViewController {
     }
     
     private func setupNavigationItem() {
-        //возможно создание кастомного вью
-        title = viewModel.title
+        
+        let titleView = MainTitleNavigationBarView()
+        guard let frame = navigationController?.navigationBar.frame else { return }
+        titleView.frame = CGRect(x: frame.width * (1 - 0.45) / 2,
+                                 y: 0,
+                                 width: frame.width * 0.45,
+                                 height: frame.height)
+        titleView.set(location: viewModel.title)
+        navigationItem.titleView = titleView
         
         let image = UIImage(named: "filterIcon")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: image,

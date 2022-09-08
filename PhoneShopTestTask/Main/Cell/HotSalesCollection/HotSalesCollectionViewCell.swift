@@ -118,6 +118,7 @@ class HotSalesCollectionViewCell: UICollectionViewCell {
                           trailing: nil,
                           padding: UIEdgeInsets(top: 8, left: 24, bottom: 0, right: 0))
         brandLabel.widthAnchor.constraint(equalTo: backView.widthAnchor, multiplier: 0.5).isActive = true
+        brandLabel.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1/3).isActive = true
         
         descriptionLabel.anchor(top: brandLabel.bottomAnchor,
                                 leading: backView.leadingAnchor,

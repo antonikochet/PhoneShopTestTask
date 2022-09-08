@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B90E6BAA28C922D200297AA5 /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90E6BA928C922D200297AA5 /* CounterView.swift */; };
+		B90E6BAC28C94B2F00297AA5 /* MainTitleNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90E6BAB28C94B2F00297AA5 /* MainTitleNavigationBarView.swift */; };
 		B98E420F28C7A0060053921F /* PhotoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E420E28C7A0060053921F /* PhotoDetailsViewController.swift */; };
 		B98E421228C8D3D90053921F /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E421128C8D3D90053921F /* CartViewController.swift */; };
 		B98E421428C8D3EB0053921F /* CartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E421328C8D3EB0053921F /* CartViewModel.swift */; };
@@ -58,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		B90E6BA928C922D200297AA5 /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
+		B90E6BAB28C94B2F00297AA5 /* MainTitleNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleNavigationBarView.swift; sourceTree = "<group>"; };
 		B98E420E28C7A0060053921F /* PhotoDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailsViewController.swift; sourceTree = "<group>"; };
 		B98E421128C8D3D90053921F /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		B98E421328C8D3EB0053921F /* CartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewModel.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				B9F72F9428BAA29D00BDD9BA /* MainViewController.swift */,
 				B9F72FBE28C0C28400BDD9BA /* MainViewModel.swift */,
 				B9F72FD428C3AAFD00BDD9BA /* MainConfiguranor.swift */,
+				B90E6BAB28C94B2F00297AA5 /* MainTitleNavigationBarView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B90E6BAC28C94B2F00297AA5 /* MainTitleNavigationBarView.swift in Sources */,
 				B9F72FB828BF7DDC00BDD9BA /* BestSellerTableViewCell.swift in Sources */,
 				B98E421628C8D4120053921F /* CartConfigurator.swift in Sources */,
 				B9F72F7E28BAA1DA00BDD9BA /* AppDelegate.swift in Sources */,
