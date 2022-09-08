@@ -68,7 +68,7 @@ class CartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubview()
-        
+        overrideUserInterfaceStyle = .light
         createLeftButton(type: .back, selector: #selector(didTouchBackButton), ratioButtonToNavBar: 37.0/44.0)
         createRightButton(type: .location, selector: #selector(didTouchLocationButton), ratioButtonToNavBar: 37.0/44.0, ratioSize: 0.6)
         setupRightNavigationButtons()

@@ -45,6 +45,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
         setupSubview()
         setupNavigationItem()
     }
@@ -124,14 +125,14 @@ class MainViewController: UIViewController {
         let explorerButton = UIButton(configuration: configurator)
         stackView.addArrangedSubview(explorerButton)
         explorerButton.heightAnchor.constraint(equalTo: tabBarView.heightAnchor).isActive = true
-        explorerButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/3).isActive = true
+        explorerButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.4).isActive = true
         
         let bagButton = UIButton()
         bagButton.tintColor = .white
         bagButton.setImage(UIImage(named: "bag"), for: .normal)
         stackView.addArrangedSubview(bagButton)
         bagButton.heightAnchor.constraint(equalTo: tabBarView.heightAnchor).isActive = true
-        bagButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 2/9).isActive = true
+        bagButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.2).isActive = true
         bagButton.addTarget(self, action: #selector(didTouchshowCart), for: .touchUpInside)
         
         let favoriteButton = UIButton()
@@ -139,14 +140,14 @@ class MainViewController: UIViewController {
         favoriteButton.setImage(UIImage(systemName: "suit.heart"), for: .normal)
         stackView.addArrangedSubview(favoriteButton)
         favoriteButton.heightAnchor.constraint(equalTo: tabBarView.heightAnchor).isActive = true
-        favoriteButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 2/9).isActive = true
+        favoriteButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.2).isActive = true
         
         let personButton = UIButton()
         personButton.tintColor = .white
         personButton.setImage(UIImage(systemName: "person"), for: .normal)
         stackView.addArrangedSubview(personButton)
         personButton.heightAnchor.constraint(equalTo: tabBarView.heightAnchor).isActive = true
-        personButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 2/9).isActive = true
+        personButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.2).isActive = true
         
         tabBarView.addSubview(countProductCartLabel)
         NSLayoutConstraint.activate([

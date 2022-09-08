@@ -62,6 +62,7 @@ class DetailsViewController: UIViewController {
     private let nameDeviceLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 26, weight: .medium)
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -167,7 +168,7 @@ class DetailsViewController: UIViewController {
     //MARK: override view`s methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        overrideUserInterfaceStyle = .light
         title = "Product Detailes"
         
         view.backgroundColor = UIColor(white: 248/255, alpha: 0.95)
@@ -265,7 +266,7 @@ class DetailsViewController: UIViewController {
                                leading: bottomView.leadingAnchor,
                                bottom: nil,
                                trailing: nil,
-                               padding: UIEdgeInsets(top: 28, left: 38, bottom: 0, right: 0))
+                               padding: UIEdgeInsets(top: 16, left: 38, bottom: 0, right: 0))
         
         nameDeviceLabel.heightAnchor.constraint(equalToConstant: nameDeviceLabel.font.lineHeight).isActive = true
         nameDeviceLabel.widthAnchor.constraint(equalTo: bottomView.widthAnchor, multiplier: 0.7).isActive = true
