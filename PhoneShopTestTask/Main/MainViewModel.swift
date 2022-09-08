@@ -9,6 +9,7 @@ import Foundation
 
 protocol MainViewModelProtocol: AnyObject {
     var title: String { get }
+    var countAddedProductInCart: String? { get }
     func getParametrsForFilterOptions() -> FilterOptionsConfiguratorProtocol
 }
 
@@ -54,6 +55,11 @@ class MainViewModel: MainViewModelProtocol {
     var title: String {
         //функция которая будет определять местоположение пользователя
         return "Zihuatanejo, Gro"
+    }
+    
+    var countAddedProductInCart: String? {
+        let count = dataStorage.getCountProducts()
+        return (count != 0 && CartViewModel.isLoadDataForViewInStartApp) ? String(count) : nil
     }
     
     func getParametrsForFilterOptions() -> FilterOptionsConfiguratorProtocol {

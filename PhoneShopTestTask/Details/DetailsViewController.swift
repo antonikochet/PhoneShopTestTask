@@ -174,7 +174,7 @@ class DetailsViewController: UIViewController {
         
         createLeftButton(type: .back, selector: #selector(didTouchBackButton), ratioButtonToNavBar: 37.0/44.0, ratioSize: 0.55)
         createRightButton(type: .cart, selector: #selector(didTouchCartViewButton), ratioButtonToNavBar: 37.00/44.0, ratioSize: 0.55)
-        
+        //TODO: добавить view для показа количества добавленного в cart
         setupBottomView()
         setupPhotosPageView()
         setContentSubview()

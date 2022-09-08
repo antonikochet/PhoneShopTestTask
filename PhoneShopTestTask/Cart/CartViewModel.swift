@@ -12,42 +12,72 @@ protocol CartViewModelProtocol {
     var delivety: String { get }
     var numberOfBasket: Int { get }
     
-    var didLoadData: ((CartViewModelProtocol) -> Void)? { get set }
+    var updateViews: ((CartViewModelProtocol) -> Void)? { get set }
     
+    func didLoadView()
     func getCartCellViewModel(at index: Int) -> CartTableCellViewModelProtocol?
 }
 
 class CartViewModel: CartViewModelProtocol {
-    private var cardData: CardData?
-    private var networkManager: Networking
+    static var isLoadDataForViewInStartApp = false
     
-    init(networkManager: Networking) {
+    private var cardData: CardData?
+    private var products: [ProductCart] {
+        didSet {
+            dataStorage.setProductsCart(products)
+        }
+    }
+    
+    private var networkManager: Networking
+    private var dataStorage: DataStorageProtocol
+    
+    init(networkManager: Networking, dataStorage: DataStorageProtocol) {
         self.networkManager = networkManager
-        loadData()
+        self.dataStorage = dataStorage
+        self.products = []
     }
     
     //MARK: protocol properties
     var total: String {
-        cardData?.total != nil ? "\(String.convertNumberInPrice(for: cardData!.total as NSNumber)) us" : ""
+        let total: Int
+        if cardData != nil && products.isEmpty  {
+            total = cardData!.total
+        } else if products.isEmpty {
+            total = 0
+        } else {
+            total = products.reduce(0, { $0 + $1.price * $1.count })
+        }
+        return "\(String.convertNumberInPrice(for: total as NSNumber)) us"
     }
     
     var delivety: String {
-        cardData?.delivery ?? ""
+        cardData?.delivery ?? "Free"
     }
     
     var numberOfBasket: Int {
-        cardData?.basket.count ?? 0
+        products.count
     }
     
     //MARK: protocol callbacks
-    var didLoadData: ((CartViewModelProtocol) -> Void)?
+    var updateViews: ((CartViewModelProtocol) -> Void)?
     
     //MARK: protocol methods
     func getCartCellViewModel(at index: Int) -> CartTableCellViewModelProtocol? {
-        guard let basket = cardData?.basket[index] else { return nil }
-        return CartTableCellViewModel(data: basket, networkManager: networkManager)
+        guard index < products.count else { return nil }
+        let product = products[index]
+        let cellViewModel = CartTableCellViewModel(data: product, networkManager: networkManager)
+        cellViewModel.delegate = self
+        return cellViewModel
     }
     
+    func didLoadView() {
+        if !Self.isLoadDataForViewInStartApp {
+            loadData()
+        } else {
+            products = dataStorage.getProductsCart()
+            updateViews?(self)
+        }
+    }
     //MARK: private methods
     private func loadData() {
         networkManager.getCardScreenData { [weak self] result in
@@ -55,10 +85,22 @@ class CartViewModel: CartViewModelProtocol {
             switch result {
             case .success(let data):
                 self.cardData = data
-                self.didLoadData?(self)
+                self.products = data.basket.map { ProductCart(basketData: $0) }
+                Self.isLoadDataForViewInStartApp = true
+                self.updateViews?(self)
             case .failure(let error):
                 print(error)
             }
         }
+    }
+}
+
+extension CartViewModel: CartTableCellViewModelDelegate {
+    func didChangeCountProduct(_ productId: Int, newCount: Int) {
+        guard let index = products.firstIndex(where: { $0.id == productId }) else { return }
+        var product = products[index]
+        product.count = newCount
+        products[index] = product
+        updateViews?(self)
     }
 }

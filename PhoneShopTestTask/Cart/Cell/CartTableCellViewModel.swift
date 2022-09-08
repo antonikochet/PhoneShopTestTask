@@ -8,42 +8,63 @@
 import Foundation
 
 protocol CartTableCellViewModelProtocol {
-    init(data: BasketCardData, networkManager: Networking)
+    init(data: ProductCart, networkManager: Networking)
     
     var nameProduct: String { get }
     var price: String { get }
+    var counterProduct: String { get }
     
     var didLoadImage: ((Data?) -> Void)? { get set }
     
     func startLoadData()
+    func didChangedCountProduct(with operation: (Int, Int) -> Int)
+}
+
+protocol CartTableCellViewModelDelegate: AnyObject {
+    func didChangeCountProduct(_ productId: Int, newCount: Int)
 }
 
 class CartTableCellViewModel: CartTableCellViewModelProtocol {
-    private let networkManager: Networking
-    private var basket: BasketCardData
+    weak var delegate: CartTableCellViewModelDelegate?
     
-    required init(data: BasketCardData, networkManager: Networking) {
+    private let networkManager: Networking
+    private var product: ProductCart
+    
+    required init(data: ProductCart, networkManager: Networking) {
         self.networkManager = networkManager
-        basket = data
+        product = data
     }
     
     var nameProduct: String {
-        basket.title
+        product.name
     }
     
     var price: String {
-        String.convertNumberInPrice(for: basket.price as NSNumber, isOutDouble: true)
+        String.convertNumberInPrice(for: product.price * product.count as NSNumber, isOutDouble: true)
+    }
+    
+    var counterProduct: String {
+        String(product.count)
     }
     
     var didLoadImage: ((Data?) -> Void)?
     
+    func didChangedCountProduct(with operation: (Int, Int) -> Int) {
+        let newCount = operation(product.count, 1)
+        if newCount >= 0 {
+            delegate?.didChangeCountProduct(product.id, newCount: newCount)
+            product.count = newCount
+        }
+    }
+    
     func startLoadData() {
-        networkManager.loadImageData(basket.images) { [weak self] result in
+        networkManager.loadImageData(product.image) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let data):
-                self?.didLoadImage?(data)
+                self.didLoadImage?(data)
             case .failure(let error):
-                print("image \(self?.basket.images ?? "") not load error: \(error)")
+                print("image \(self.product.image) not load error: \(error)")
             }
         }
     }

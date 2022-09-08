@@ -11,7 +11,7 @@ class CartViewController: UIViewController {
 
     var viewModel: CartViewModelProtocol! {
         didSet {
-            viewModel.didLoadData = { [weak self] viewModel in
+            viewModel.updateViews = { [weak self] viewModel in
                 DispatchQueue.main.async {
                     self?.totalLabel.text = viewModel.total
                     self?.deliveryLabel.text = viewModel.delivety
@@ -150,6 +150,7 @@ class CartViewController: UIViewController {
                          padding: UIEdgeInsets(top: 80, left: 16, bottom: 8, right: 16))
         tableView.dataSource = self
         tableView.delegate = self
+        viewModel.didLoadView()
     }
     
     private func setupTotalAndDeliveryLabel() -> UIStackView {

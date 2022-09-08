@@ -22,8 +22,7 @@ class CartTableViewCell: UITableViewCell {
                 }
             }
             viewModel.startLoadData()
-            nameProductLabel.text = viewModel.nameProduct
-            priceLabel.text = viewModel.price
+            setSubviews()
         }
     }
     
@@ -64,7 +63,7 @@ class CartTableViewCell: UITableViewCell {
     }()
     
     private let counterView: CounterView = {
-        let view = CounterView(1)
+        let view = CounterView("1")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -129,6 +128,24 @@ class CartTableViewCell: UITableViewCell {
                          trailing: basketButton.leadingAnchor,
                          padding: UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 24),
                          size: CGSize(width: 26, height: 0))
+        counterView.addTargerButton(target: self,
+                                    plusSelector: #selector(didTouchPlusButtonCounterView),
+                                    minusSelector: #selector(didTouchMinusButtonCounterView))
     }
     
+    private func setSubviews() {
+        nameProductLabel.text = viewModel.nameProduct
+        priceLabel.text = viewModel.price
+        counterView.counter = viewModel.counterProduct
+    }
+    
+    @objc private func didTouchPlusButtonCounterView() {
+        viewModel.didChangedCountProduct(with: +)
+        setSubviews()
+    }
+    
+    @objc private func didTouchMinusButtonCounterView() {
+        viewModel.didChangedCountProduct(with: -)
+        setSubviews()
+    }
 }

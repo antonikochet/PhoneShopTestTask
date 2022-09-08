@@ -34,6 +34,15 @@ class MainViewController: UIViewController {
         return view
     }()
     
+    private let countProductCartLabel: UILabel = {
+        let label = UILabel()
+        label.adjustsFontSizeToFitWidth = true
+        label.backgroundColor = .red
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubview()
@@ -45,6 +54,20 @@ class MainViewController: UIViewController {
         
         tabBarView.layer.cornerRadius = tabBarView.frame.height / 2
         tabBarView.clipsToBounds = true
+        
+        countProductCartLabel.layer.cornerRadius = countProductCartLabel.frame.height / 2
+        countProductCartLabel.clipsToBounds = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let count = viewModel.countAddedProductInCart {
+            countProductCartLabel.text = count
+            countProductCartLabel.isHidden = false
+        } else {
+            countProductCartLabel.text = nil
+            countProductCartLabel.isHidden = true
+        }
     }
     
     private func setupNavigationItem() {
@@ -124,6 +147,13 @@ class MainViewController: UIViewController {
         stackView.addArrangedSubview(personButton)
         personButton.heightAnchor.constraint(equalTo: tabBarView.heightAnchor).isActive = true
         personButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 2/9).isActive = true
+        
+        tabBarView.addSubview(countProductCartLabel)
+        NSLayoutConstraint.activate([
+            countProductCartLabel.centerXAnchor.constraint(equalTo: bagButton.centerXAnchor, constant: 15),
+            countProductCartLabel.centerYAnchor.constraint(equalTo: bagButton.centerYAnchor, constant: -15),
+            countProductCartLabel.heightAnchor.constraint(equalToConstant: 15),
+            countProductCartLabel.widthAnchor.constraint(equalTo: countProductCartLabel.heightAnchor)])
     }
     
     @objc private func didTouchFilterOptionsButton() {

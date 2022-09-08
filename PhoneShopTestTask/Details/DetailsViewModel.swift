@@ -108,7 +108,7 @@ class DetailsViewModel: DetailsViewModelProtocol {
     }
     
     func didTouchAddCart() {
-        
+        //TODO: добавить сюда добавление в хранилище инофрмацию
     }
     
     func getImageData(at index: Int) -> Data? {

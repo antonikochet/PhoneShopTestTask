@@ -9,12 +9,9 @@ import UIKit
 
 class CounterView: UIView {
     
-    private var _counter: Int {
+    var counter: String {
         didSet {
-            if _counter <= 0 {
-                _counter = 0
-            }
-            countLabel.text = String(_counter)
+            countLabel.text = counter
         }
     }
     
@@ -43,14 +40,14 @@ class CounterView: UIView {
         return label
     }()
     
-    init(_ startCount: Int) {
-        self._counter = startCount
+    init(_ startCount: String) {
+        counter = startCount
         super.init(frame: .zero)
         setup()
     }
     
     required init?(coder: NSCoder) {
-        self._counter = 0
+        counter = "1"
         super.init(coder: coder)
         setup()
     }
@@ -81,17 +78,11 @@ class CounterView: UIView {
                           trailing: trailingAnchor,
                           padding: UIEdgeInsets(top: 0, left: 0, bottom: 2, right: 0))
         plusButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1/3).isActive = true
-        
-        countLabel.text = String(_counter)
-        plusButton.addTarget(self, action: #selector(touchButtons(_:)), for: .touchUpInside)
-        minusButton.addTarget(self, action: #selector(touchButtons(_:)), for: .touchUpInside)
     }
-    
-    @objc private func touchButtons(_ button: UIButton) {
-        if button == plusButton {
-            _counter += 1
-        } else {
-            _counter -= 1
-        }
+
+    func addTargerButton(target: Any?, plusSelector: Selector, minusSelector: Selector) {
+        
+        plusButton.addTarget(target, action: plusSelector, for: .touchUpInside)
+        minusButton.addTarget(target, action: minusSelector, for: .touchUpInside)
     }
 }

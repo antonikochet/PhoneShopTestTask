@@ -10,7 +10,7 @@ import UIKit
 class CartConfigurator: Configurator {
     func configure() -> UIViewController {
         let vc = CartViewController()
-        let viewModel = CartViewModel(networkManager: NetworkManager())
+        let viewModel = CartViewModel(networkManager: NetworkManager(), dataStorage: DataStorage())
         vc.viewModel = viewModel
         
         return vc
