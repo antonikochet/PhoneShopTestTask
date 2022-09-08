@@ -8,6 +8,7 @@
 import Foundation
 
 struct BestSellerModel {
+    let id: Int
     let nameDevice: String
     let price: Int?
     let discountPrice: Int?
@@ -15,6 +16,7 @@ struct BestSellerModel {
     let isFavorites: Bool
     
     init(_ device: Device) {
+        id = device.id
         nameDevice = device.title
         price = device.discountPrice
         discountPrice = device.priceWithoutDiscount

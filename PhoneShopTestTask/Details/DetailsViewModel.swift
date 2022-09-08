@@ -19,7 +19,8 @@ protocol DetailsViewModelProtocol {
     var price: String { get }
     var numberOfPhotos: Int { get }
     var sectionsOfInfo: [String] { get }
-    init(_ id: Int, networkManager: Networking)
+    init(_ id: Int, networkManager: Networking, dataStorage: DataStorageProtocol)
+    init(_ product: ProductCart, networkManager: Networking, dataStorage: DataStorageProtocol)
     
     var didLoadDataForView: ((DetailsViewModelProtocol) -> Void)? { get set }
     var changedFavorites: (() -> Void)? { get set }
@@ -32,7 +33,9 @@ protocol DetailsViewModelProtocol {
 class DetailsViewModel: DetailsViewModelProtocol {
     //MARK: private property
     private let networkManager: Networking
+    private let dataStorage: DataStorageProtocol
     private var id: Int
+    private var product: ProductCart?
     private var detailsData: DetailsData?
     private var isFavorite: Bool = false
     private var imagesData: [Data] = []
@@ -94,9 +97,18 @@ class DetailsViewModel: DetailsViewModelProtocol {
     var didLoadImage: (() -> Void)?
     
     //MARK: init
-    required init(_ id: Int, networkManager: Networking) {
+    required init(_ id: Int, networkManager: Networking, dataStorage: DataStorageProtocol) {
         self.networkManager = networkManager
+        self.dataStorage = dataStorage
         self.id = id
+        loadData()
+    }
+    
+    required init(_ product: ProductCart, networkManager: Networking, dataStorage: DataStorageProtocol) {
+        self.networkManager = networkManager
+        self.dataStorage = dataStorage
+        self.product = product
+        self.id = product.id
         loadData()
     }
     
@@ -108,7 +120,12 @@ class DetailsViewModel: DetailsViewModelProtocol {
     }
     
     func didTouchAddCart() {
-        //TODO: добавить сюда добавление в хранилище инофрмацию
+        if var product = product {
+            if let storageProduct = dataStorage.getProduct(at: product.id) {
+                product.count = storageProduct.count + 1
+            }
+            dataStorage.setProductCart(product: product)
+        }
     }
     
     func getImageData(at index: Int) -> Data? {

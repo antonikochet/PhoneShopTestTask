@@ -13,6 +13,7 @@ protocol CartViewModelProtocol {
     var numberOfBasket: Int { get }
     
     var updateViews: ((CartViewModelProtocol) -> Void)? { get set }
+    var didLoadData: ((CartViewModelProtocol) -> Void)? { get set }
     
     func didLoadView()
     func getCartCellViewModel(at index: Int) -> CartTableCellViewModelProtocol?
@@ -60,6 +61,7 @@ class CartViewModel: CartViewModelProtocol {
     
     //MARK: protocol callbacks
     var updateViews: ((CartViewModelProtocol) -> Void)?
+    var didLoadData: ((CartViewModelProtocol) -> Void)?
     
     //MARK: protocol methods
     func getCartCellViewModel(at index: Int) -> CartTableCellViewModelProtocol? {
@@ -87,7 +89,7 @@ class CartViewModel: CartViewModelProtocol {
                 self.cardData = data
                 self.products = data.basket.map { ProductCart(basketData: $0) }
                 Self.isLoadDataForViewInStartApp = true
-                self.updateViews?(self)
+                self.didLoadData?(self)
             case .failure(let error):
                 print(error)
             }

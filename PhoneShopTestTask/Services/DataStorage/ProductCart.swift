@@ -15,12 +15,12 @@ struct ProductCart: Codable {
     let price: Int
     let image: String
     
-    init(device: Device) {
-        self.id = device.id
-        self.name = device.title
+    init(model bs: BestSellerModel) {
+        self.id = bs.id
+        self.name = bs.nameDevice
         self.count = 1
-        self.price = device.discountPrice ?? 0
-        self.image = device.picture
+        self.price = bs.discountPrice ?? 0
+        self.image = bs.picture
     }
     
     init(basketData: BasketCardData) {

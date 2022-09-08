@@ -11,6 +11,7 @@ protocol MainViewModelProtocol: AnyObject {
     var title: String { get }
     var countAddedProductInCart: String? { get }
     func getParametrsForFilterOptions() -> FilterOptionsConfiguratorProtocol
+    func getProduct(at index: Int) -> ProductCart
 }
 
 class MainViewModel: MainViewModelProtocol {
@@ -67,6 +68,12 @@ class MainViewModel: MainViewModelProtocol {
                                                  prices: dataStorage.getPricesForFilter(),
                                                  sizes: dataStorage.getSizesForFilter())
         return data
+    }
+    
+    func getProduct(at index: Int) -> ProductCart {
+        let model = bestSellesModels[index]
+        let product = ProductCart(model: model)
+        return product
     }
 }
 

@@ -15,8 +15,9 @@ protocol DataStorageProtocol {
     
     func getProductsCart() -> [ProductCart]
     func setProductsCart(_ array: [ProductCart])
-    func setProductCart(id: Int, product: ProductCart)
+    func setProductCart(product: ProductCart)
     func getCountProducts() -> Int
+    func getProduct(at id: Int) -> ProductCart?
 }
 
 struct DataStorage: DataStorageProtocol {
@@ -49,17 +50,25 @@ struct DataStorage: DataStorageProtocol {
         UserDefaults.standard.set(encodeData, forKey: NameKeyUserDefaults.devices.rawValue)
     }
     
-    func setProductCart(id: Int, product: ProductCart) {
+    func setProductCart(product: ProductCart) {
         var products = getProductsCart()
-        guard !products.isEmpty,
-              let index = products.firstIndex(where: { $0.id == id }) else { return }
-        products[index] = product
+        if let index = products.firstIndex(where: { $0.id == product.id }) {
+            products[index] = product
+        } else {
+            products.append(product)
+        }
         setProductsCart(products)
     }
     
     func getCountProducts() -> Int {
         let array = getProductsCart()
         return array.reduce(0, { $0 + $1.count })
+    }
+    
+    func getProduct(at id: Int) -> ProductCart? {
+        let array = getProductsCart()
+        guard let product = array.first(where: { id == $0.id }) else { return nil }
+        return product
     }
     
     enum NameKeyUserDefaults: String {

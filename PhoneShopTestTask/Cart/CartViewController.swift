@@ -15,6 +15,13 @@ class CartViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.totalLabel.text = viewModel.total
                     self?.deliveryLabel.text = viewModel.delivety
+                }
+            }
+            
+            viewModel.didLoadData = { [weak self] viewModel in
+                DispatchQueue.main.async {
+                    self?.totalLabel.text = viewModel.total
+                    self?.deliveryLabel.text = viewModel.delivety
                     self?.tableView.reloadData()
                 }
             }

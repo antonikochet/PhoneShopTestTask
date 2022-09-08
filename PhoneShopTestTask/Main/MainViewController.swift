@@ -220,8 +220,9 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: BestSellerTableViewCellDelegate {
     func showDetailsView(at index: Int) {
-        let id = 0 //viewModel.getIdForDevice(at: index)
-        let detailsConfigurator = DetailsConfigurator(id: id)
+        //let id = 0 viewModel.getIdForDevice(at: index)
+        let product = viewModel.getProduct(at: index)
+        let detailsConfigurator = DetailsConfigurator(product: product)
         let vc = detailsConfigurator.configure()
         navigationController?.pushViewController(vc, animated: true)
     }
