@@ -11,16 +11,19 @@ The MVVM architecture was used when building the application
 * carousel of elements.
 ### Best seller 
 * Product list in the form of a collection.
-![](//screenshots/mainScreen.gif)
+
+![](/screenshots/mainScreen.gif)
 
 ### Filter options 
 * Drop-down list of brand, size and price. Size - only draw as in Figma.
-![](//screenshots/filterOptions.gif "work filter options")
+
+![](/screenshots/filterOptions.gif "work filter options")
 
 ## Product details screen
 * Shows only one phone model (limitations of the provided API).
 * Product images in the form of a carousel.
-![](//screenshots/detailsProduct.gif "product details")
+
+![](/screenshots/detailsProduct.gif "product details")
 
 When you click the add to cart button, the device that was selected on the main screen is added to the cart
 
@@ -30,8 +33,9 @@ When you click the add to cart button, the device that was selected on the main 
 * The location and checkout buttons are not activated
 
 Since according to the technical specification, the initial data is taken on request from the issued API, adding products from the main screen starts working after opening the my cart screen.
-![](//screenshots/myCart.gif "my cart screen")
+
+![](/screenshots/myCart.gif "my cart screen")
 
 ## Presentation of the application
 
-![](//screenshots/app.gif)
+![](/screenshots/app.gif)
