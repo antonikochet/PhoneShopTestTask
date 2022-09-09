@@ -51,7 +51,7 @@ class HotSalesTableViewCell: UITableViewCell {
     
     private let errorLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 25, weight: .heavy)
+        label.font = UIFont.markProFont(size: 25, weight: .heavy)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

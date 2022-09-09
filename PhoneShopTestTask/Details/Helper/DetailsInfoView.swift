@@ -46,7 +46,7 @@ class DetailsInfoView: UIView {
     private let label: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(white: 183/255, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.font = UIFont.markProFont(size: 11, weight: .plain)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center

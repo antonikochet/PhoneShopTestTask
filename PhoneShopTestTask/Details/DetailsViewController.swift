@@ -61,7 +61,7 @@ class DetailsViewController: UIViewController {
     
     private let nameDeviceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 26, weight: .medium)
+        label.font = UIFont.markProFont(size: 24, weight: .medium)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -92,13 +92,13 @@ class DetailsViewController: UIViewController {
         segmented.backgroundColor = .clear
         segmented.tintColor = .clear
         let attributes: [NSAttributedString.Key : Any] = [
-            .font : UIFont.systemFont(ofSize: 20, weight: .light),
+            .font : UIFont.markProFont(size: 20, weight: .plain)!,
             .foregroundColor : UIColor(white: 0, alpha: 0.5)
         ]
         segmented.setTitleTextAttributes(attributes, for: .normal)
 
         let selectedAttrib: [NSAttributedString.Key : Any] = [
-            .font : UIFont.systemFont(ofSize: 20, weight: .medium),
+            .font : UIFont.markProFont(size: 20, weight: .bold)!,
             .foregroundColor : UIColor(white: 0, alpha: 1)]
         segmented.setTitleTextAttributes(selectedAttrib, for: .selected)
         segmented.translatesAutoresizingMaskIntoConstraints = false
@@ -124,7 +124,7 @@ class DetailsViewController: UIViewController {
     //MARK: bottom bottomView
     private let selectColorAndCapacityLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.font = UIFont.markProFont(size: 16, weight: .medium)
         label.text = "Select color and capacity"
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -142,13 +142,13 @@ class DetailsViewController: UIViewController {
         let segmented = UISegmentedControl()
         segmented.tintColor = UIColor(named: "orange")
         let attributes: [NSAttributedString.Key : Any] = [
-            .font : UIFont.systemFont(ofSize: 13, weight: .medium),
+            .font : UIFont.markProFont(size: 13, weight: .bold)!,
             .foregroundColor : UIColor(white: 141/255, alpha: 1)
         ]
         segmented.setTitleTextAttributes(attributes, for: .normal)
 
         let selectedAttrib: [NSAttributedString.Key : Any] = [
-            .font : UIFont.systemFont(ofSize: 13, weight: .medium),
+            .font : UIFont.markProFont(size: 13, weight: .bold)!,
             .foregroundColor : UIColor(white: 1, alpha: 1)
         ]
         segmented.setTitleTextAttributes(selectedAttrib, for: .selected)
@@ -158,7 +158,7 @@ class DetailsViewController: UIViewController {
     
     private let addCartButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        button.titleLabel?.font = UIFont.markProFont(size: 20, weight: .bold)
         button.tintColor = .white
         button.backgroundColor = UIColor(named: "orange")
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -170,12 +170,13 @@ class DetailsViewController: UIViewController {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
         title = "Product Detailes"
-        
+        navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.markProFont(size: 18, weight: .medium)!
+        ]
         view.backgroundColor = UIColor(white: 248/255, alpha: 0.95)
         
         createLeftButton(type: .back, selector: #selector(didTouchBackButton), ratioButtonToNavBar: 37.0/44.0, ratioSize: 0.55)
         createRightButton(type: .cart, selector: #selector(didTouchCartViewButton), ratioButtonToNavBar: 37.00/44.0, ratioSize: 0.55)
-        //TODO: добавить view для показа количества добавленного в cart
         setupBottomView()
         setupPhotosPageView()
         setContentSubview()

@@ -45,7 +45,7 @@ class HotSalesCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "New"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 10, weight: .medium)
+        label.font = UIFont.markProFont(size: 10, weight: .bold)
         label.minimumScaleFactor = 0.5
         label.backgroundColor = UIColor(named: "orange")
         label.textAlignment = .center
@@ -57,7 +57,7 @@ class HotSalesCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .white
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 24, weight: .black)
+        label.font = UIFont.markProFont(size: 24, weight: .bold)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.7
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +67,7 @@ class HotSalesCollectionViewCell: UICollectionViewCell {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        label.font = UIFont.markProFont(size: 12, weight: .plain)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -77,7 +77,7 @@ class HotSalesCollectionViewCell: UICollectionViewCell {
         button.setTitle("Buy now!", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .white
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        button.titleLabel?.font = UIFont.markProFont(size: 12, weight: .medium)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

@@ -22,7 +22,7 @@ class MainTitleNavigationBarView: UIView {
     private let locationLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        label.font = UIFont.markProFont(size: 15, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

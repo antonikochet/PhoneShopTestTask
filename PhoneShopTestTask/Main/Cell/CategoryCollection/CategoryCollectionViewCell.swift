@@ -41,7 +41,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     private let nameCategoryLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        label.font = UIFont.markProFont(size: 15, weight: .plain)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

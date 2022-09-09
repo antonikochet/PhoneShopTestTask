@@ -17,6 +17,11 @@
 		B98E421828C8E8E50053921F /* CardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E421728C8E8E50053921F /* CardData.swift */; };
 		B98E421A28C8F09D0053921F /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E421928C8F09D0053921F /* CartTableViewCell.swift */; };
 		B98E421D28C8FF8A0053921F /* CartTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E421C28C8FF8A0053921F /* CartTableCellViewModel.swift */; };
+		B9CDC5B828CB6D90005D5A31 /* Mark-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9CDC5B428CB6D8F005D5A31 /* Mark-Pro.ttf */; };
+		B9CDC5B928CB6D90005D5A31 /* Mark-Pro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9CDC5B528CB6D8F005D5A31 /* Mark-Pro-Bold.ttf */; };
+		B9CDC5BA28CB6D90005D5A31 /* Mark-Pro-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9CDC5B628CB6D8F005D5A31 /* Mark-Pro-Heavy.ttf */; };
+		B9CDC5BB28CB6D90005D5A31 /* Mark-Pro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9CDC5B728CB6D90005D5A31 /* Mark-Pro-Medium.ttf */; };
+		B9CDC5BD28CB6EC9005D5A31 /* extention + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDC5BC28CB6EC9005D5A31 /* extention + UIFont.swift */; };
 		B9F72F7E28BAA1DA00BDD9BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F72F7D28BAA1DA00BDD9BA /* AppDelegate.swift */; };
 		B9F72F8028BAA1DA00BDD9BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F72F7F28BAA1DA00BDD9BA /* SceneDelegate.swift */; };
 		B9F72F8728BAA1E000BDD9BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F72F8628BAA1E000BDD9BA /* Assets.xcassets */; };
@@ -69,6 +74,11 @@
 		B98E421728C8E8E50053921F /* CardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardData.swift; sourceTree = "<group>"; };
 		B98E421928C8F09D0053921F /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
 		B98E421C28C8FF8A0053921F /* CartTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableCellViewModel.swift; sourceTree = "<group>"; };
+		B9CDC5B428CB6D8F005D5A31 /* Mark-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark-Pro.ttf"; sourceTree = "<group>"; };
+		B9CDC5B528CB6D8F005D5A31 /* Mark-Pro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark-Pro-Bold.ttf"; sourceTree = "<group>"; };
+		B9CDC5B628CB6D8F005D5A31 /* Mark-Pro-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark-Pro-Heavy.ttf"; sourceTree = "<group>"; };
+		B9CDC5B728CB6D90005D5A31 /* Mark-Pro-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark-Pro-Medium.ttf"; sourceTree = "<group>"; };
+		B9CDC5BC28CB6EC9005D5A31 /* extention + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIFont.swift"; sourceTree = "<group>"; };
 		B9F72F7A28BAA1DA00BDD9BA /* PhoneShopTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoneShopTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9F72F7D28BAA1DA00BDD9BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9F72F7F28BAA1DA00BDD9BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +154,17 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		B9CDC5B328CB6D25005D5A31 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B9CDC5B528CB6D8F005D5A31 /* Mark-Pro-Bold.ttf */,
+				B9CDC5B628CB6D8F005D5A31 /* Mark-Pro-Heavy.ttf */,
+				B9CDC5B428CB6D8F005D5A31 /* Mark-Pro.ttf */,
+				B9CDC5B728CB6D90005D5A31 /* Mark-Pro-Medium.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		B9F72F7128BAA1DA00BDD9BA = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +184,7 @@
 		B9F72F7C28BAA1DA00BDD9BA /* PhoneShopTestTask */ = {
 			isa = PBXGroup;
 			children = (
+				B9CDC5B328CB6D25005D5A31 /* Fonts */,
 				B9F72FA228BBAB2200BDD9BA /* Helper  */,
 				B9F72F9628BAA32D00BDD9BA /* Services */,
 				B9F72FCA28C0EFA500BDD9BA /* FilterOptions */,
@@ -237,6 +259,7 @@
 				B9F72FD228C3AA9600BDD9BA /* Configurator.swift */,
 				B9F72FE628C61AC300BDD9BA /* extention + String.swift */,
 				B9F72FE828C6375700BDD9BA /* extention + UIViewController.swift */,
+				B9CDC5BC28CB6EC9005D5A31 /* extention + UIFont.swift */,
 			);
 			path = "Helper ";
 			sourceTree = "<group>";
@@ -383,8 +406,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9CDC5B928CB6D90005D5A31 /* Mark-Pro-Bold.ttf in Resources */,
+				B9CDC5B828CB6D90005D5A31 /* Mark-Pro.ttf in Resources */,
+				B9CDC5BB28CB6D90005D5A31 /* Mark-Pro-Medium.ttf in Resources */,
 				B9F72F8A28BAA1E000BDD9BA /* LaunchScreen.storyboard in Resources */,
 				B9F72F8728BAA1E000BDD9BA /* Assets.xcassets in Resources */,
+				B9CDC5BA28CB6D90005D5A31 /* Mark-Pro-Heavy.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +459,7 @@
 				B9F72F8028BAA1DA00BDD9BA /* SceneDelegate.swift in Sources */,
 				B9F72FC528C0D55F00BDD9BA /* HotSalesCollectionCellViewModel.swift in Sources */,
 				B9F72FB028BE3CD700BDD9BA /* NetworkManager.swift in Sources */,
+				B9CDC5BD28CB6EC9005D5A31 /* extention + UIFont.swift in Sources */,
 				B9F72FAE28BE3C5100BDD9BA /* Networking.swift in Sources */,
 				B9F72F9528BAA29D00BDD9BA /* MainViewController.swift in Sources */,
 				B9F72FDE28C3B89A00BDD9BA /* DetailsConfigurator.swift in Sources */,
@@ -605,6 +633,7 @@
 				INFOPLIST_FILE = PhoneShopTestTask/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -632,6 +661,7 @@
 				INFOPLIST_FILE = PhoneShopTestTask/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -35,7 +35,7 @@ class CounterView: UIView {
         let label = UILabel()
         label.textColor = .white
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.font = UIFont.markProFont(size: 20, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

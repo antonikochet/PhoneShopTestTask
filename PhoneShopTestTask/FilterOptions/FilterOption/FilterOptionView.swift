@@ -134,7 +134,7 @@ fileprivate extension FilterOptionView {
         private let textFieldInsets = UIEdgeInsets(top: 8, left: 46, bottom: 0, right: 31)
         private let pickerInsets = UIEdgeInsets(top: 0, left: 46, bottom: 0, right: 31)
         
-        static let labelFont = UIFont.systemFont(ofSize: 20, weight: .medium)
+        static let labelFont = UIFont.markProFont(size: 18, weight: .medium)!
         
         func sizesView(widthView: CGFloat, isHiddenPicker: Bool) -> ContentSizes {
             var height: CGFloat = 0

@@ -43,7 +43,7 @@ class BestSellerCollectionViewCell: UICollectionViewCell {
     private let discountPriceLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.font = UIFont.markProFont(size: 16, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -52,7 +52,7 @@ class BestSellerCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = UIColor(white: 0.8, alpha: 1)
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+        label.font = UIFont.markProFont(size: 10, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -60,7 +60,7 @@ class BestSellerCollectionViewCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.adjustsFontSizeToFitWidth = true
-        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
+        label.font = UIFont.markProFont(size: 10, weight: .plain)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

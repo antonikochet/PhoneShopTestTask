@@ -55,7 +55,7 @@ extension UIViewController {
         label.backgroundColor = UIColor(named: "orange")
         label.text = title
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.font = UIFont.markProFont(size: 18, weight: .medium)
         label.textColor = .white
         label.isUserInteractionEnabled = true
         

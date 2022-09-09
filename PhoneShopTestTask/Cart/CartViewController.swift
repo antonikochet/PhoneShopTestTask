@@ -31,7 +31,7 @@ class CartViewController: UIViewController {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "My Cart"
-        label.font = UIFont.systemFont(ofSize: 35, weight: .semibold)
+        label.font = UIFont.markProFont(size: 35, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -46,16 +46,16 @@ class CartViewController: UIViewController {
     private let checkoutButton: UIButton = {
         let button = UIButton()
         button.setTitle("Checkout", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        button.titleLabel?.font = UIFont.markProFont(size: 20, weight: .bold)
         button.backgroundColor = UIColor(named: "orange")
         button.setTitleColor(.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private let totalLabel: UILabel = UILabel.createTotalAndDeliveryLabel(with: "1000", weight: .heavy)
+    private let totalLabel: UILabel = UILabel.createTotalAndDeliveryLabel(with: "1000", weight: .bold)
     
-    private let deliveryLabel: UILabel = UILabel.createTotalAndDeliveryLabel(with: "free", weight: .heavy)
+    private let deliveryLabel: UILabel = UILabel.createTotalAndDeliveryLabel(with: "free", weight: .bold)
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -168,8 +168,8 @@ class CartViewController: UIViewController {
         let rightStackView = setupStackView(axis: .vertical)
         rightStackView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
-        leftStackView.addArrangedSubview(UILabel.createTotalAndDeliveryLabel(with: "Total", weight: .medium))
-        leftStackView.addArrangedSubview(UILabel.createTotalAndDeliveryLabel(with: "Delivery", weight: .medium))
+        leftStackView.addArrangedSubview(UILabel.createTotalAndDeliveryLabel(with: "Total", weight: .plain))
+        leftStackView.addArrangedSubview(UILabel.createTotalAndDeliveryLabel(with: "Delivery", weight: .plain))
         
         rightStackView.addArrangedSubview(totalLabel)
         rightStackView.addArrangedSubview(deliveryLabel)
@@ -195,7 +195,7 @@ class CartViewController: UIViewController {
         let label = UILabel()
         label.text = "Add address"
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        label.font = UIFont.markProFont(size: 15, weight: .medium)
         let labelButton = UIBarButtonItem(customView: label)
         navigationItem.rightBarButtonItems = [rightButton, labelButton]
     }
@@ -230,11 +230,11 @@ extension CartViewController: UITableViewDelegate {
 }
 
 fileprivate extension UILabel {
-    static func createTotalAndDeliveryLabel(with text: String?, weight: UIFont.Weight) -> UILabel {
+    static func createTotalAndDeliveryLabel(with text: String?, weight: UIFont.MarkProFontWeight) -> UILabel {
         let label = UILabel()
         label.text = text
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 16, weight: weight)
+        label.font = UIFont.markProFont(size: 15, weight: weight)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }

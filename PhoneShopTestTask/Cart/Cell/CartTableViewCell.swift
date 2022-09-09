@@ -39,7 +39,7 @@ class CartTableViewCell: UITableViewCell {
         label.numberOfLines = 0
         label.minimumScaleFactor = 0.7
         label.adjustsFontSizeToFitWidth = true
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.font = UIFont.markProFont(size: 20, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -47,7 +47,7 @@ class CartTableViewCell: UITableViewCell {
     private let priceLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(named: "orange")
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.font = UIFont.markProFont(size: 20, weight: .medium)
         label.minimumScaleFactor = 0.7
         label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
